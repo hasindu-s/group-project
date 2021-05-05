@@ -12,4 +12,4 @@ This is a web based book recommendation system I have developed as a part of one
   
   Recommendation is done by finding books with similar corpus to a given book and displaying top 10 (number of recommendations can be changed) books with the least distance (distance is measured by cosine similarity).
   
-This project includes a product listing page with pagination.
+This project includes a product listing page with pagination. Books can searched by their titles
