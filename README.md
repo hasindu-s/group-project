@@ -6,7 +6,7 @@ This is a web based book recommendation system I have developed as a part of one
 
   * Dataset - Goodreads 10K dataset
   * Python web framework = Flask
-  * Database - MySQL
+  * Database - MySQL (Runs on port 3307)
   * Virtual servers - Flask server for displaying recommendations and XAMPP for displaying product listing page
   * Create a file from the model - Pickle (This allows to save the model as an object and get recommendations quickly)
   
