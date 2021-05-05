@@ -8,6 +8,7 @@ This is a web based book recommendation system I have developed as a part of one
   * Python web framework = Flask
   * Database - MySQL
   * Virtual servers - Flask server for displaying recommendations and XAMPP for displaying product listing page
+  * Create a file from the model - Pickle (This allows to save the model as an object and get recommendations quickly)
   
   Recommendation is done by finding books with similar corpus to a given book and displaying top 10 (number of recommendations can be changed) books with the least distance (distance is measured by cosine similarity).
   
