@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+{% set title = book[0][9] %}
+{% set author = book[0][7] %}
+{% set year = book[0][8] %}
+{% set isbn = book[0][5] %}
+{% set rating = book[0][12] %}
+{% set rating_count = book[0][13] %}
+{% set img = book[0][21] %}
+
+<html>
+    <head>
+        <title>
+            {% block title %}
+                {{ title }}
+            {% endblock %}
+        </title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+        <link href="https://fonts.googleapis.com/css2?family=Langar&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <h2 style="font-family: 'Langar', cursive;font-size: 35px;"><a href="http://127.0.0.1:80/Project/index1.php" style="color:#C70039;">Storefront</a></h2>
+                </div>
+                <nav>
+                    <ul id="MenuItems">
+                        <li><a href="http://127.0.0.1:80/Project/index1.php">Home</a></li>
+                        <li><a href="http://127.0.0.1:80/Project/product1.php">Products</a></li>
+                        <li><a href="http://127.0.0.1:80/Project/about.php">About</a></li>
+                        <li><a href="http://127.0.0.1:80/Project/contact_us1.php">Contact</a></li>
+                        <li><a href="http://127.0.0.1:80/Project/login.php">Sign In</a></li>
+                    </ul>
+                </nav>
+                <img src="{{ url_for('static', filename='images/cart.png') }}" width="30px" height="30px">            
+            </div>
+
+            <div class="small-container single-product">
+                <div class="row">
+                    <div class="col-2">
+                        <img src="{{ img }}" style="width: 300px;">
+                    </div>
+                    
+                    <div class="col-2">
+                        <p>Home / Book</p>
+                        <h1>{{ title }}</h1>
+                        <h4><span style="font-size: medium;">Written by - </span>{{ author }}</h4>
+                        <h4><span style="font-size: medium;">Published year - </span>{{ (( year )|string )[:-2] }}</h4>
+                        <h4><span style="font-size: medium;">Price - </span>$9.00</h4>
+                        <h4><span style="font-size: medium;">ISBN - </span>{{ isbn }}</h4>
+                        {% if rating|float < 3.0 %}
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star-o"></span>
+                            <span class="fa fa-star-o"></span>
+                        {% elif rating|float < 3.5 %}
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star-half-o"></span>
+                            <span class="fa fa-star-o"></span>
+                        {% elif rating|float < 4.0 %}
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star-o"></span>
+                        {% elif rating|float < 4.5 %}
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star-half-o"></span>
+                        {% else %}
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                        {% endif %}
+                        <span style="font-size: medium;">({{ rating_count }})</span>
+                        <br/>
+                        <input type="number" value="1" min=1 max=5>
+                        <a href="" class="btn">Add To Cart</a>
+                        <br/>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <!--title-->
+            <div class="small-container">
+                <div class="row row-2">
+                    <h2>Similar books</h2>
+                </div>
+            </div>
+            
+            <!--product-->        
+            <div class="small-container">
+                {% set j = 0 %}
+                <div class="row">
+                    {% for book in book_dict  %}
+                        <div class="col-4">
+                            <a href="{{ url_for('book_details', book_title = book) }}"><img src="{{ book_dict[book] }}">
+                            <h4>{{ book }}</h4></a>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-o"></i>
+                            </div>
+                            <p>$9.00</p>
+                        </div>
+                    {% endfor %}
+                </div>             
+            </div>
+        </div>
+            
+        <!--footer-->    
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="footer-col-1">
+                        <h3>Download our App</h3>
+                        <p>Download app for android and ios mobile phone</p>
+                        <div class="app-logo">
+                            <img src="{{ url_for('static', filename='images/play-store.png') }}">
+                            <img src="{{ url_for('static', filename='images/app-store.png') }}">
+                        </div>
+                    </div>
+                    
+                    <div class="footer-col-2">
+                        <p>Our purpose is to sustainbly make the pleasure and benefits of online shopping accessible to the many.</p>
+                    </div>
+                    
+                    <div class="footer-col-3">
+                        <h3>Useful Links</h3>
+                        <ul>
+                            <li>Coupons</li>
+                            <li>Blog Post</li>
+                            <li>Return Policy</li>
+                            <li>Join Affiliate</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-col-4">
+                        <h3>Follow Us</h3>
+                        <ul>
+                            <li>Facebook</li>
+                            <li>Twitter</li>
+                            <li>Instagram</li>
+                            <li>YouTube</li>
+                        </ul>
+                    </div>
+                </div>
+                <hr>
+                <p class="copyright">Copyright 2021 - Storefront</p>
+            </div>
+        </div>
+    
+        <script>
+            var MenuItems = document.getElementById("MenuItems");
+            
+            MenuItems.style.maxHeight = "0px";
+            
+            function menutoggle()
+            {
+                if(MenuItems.style.maxHeight == "0px")
+                {
+                    MenuItems.style.maxHeight = "200px";
+                }
+                
+                else
+                {
+                    MenuItems.style.maxHeight = "0px"; 
+                }
+                
+            }
+            
+        </script>
+        
+        <script src="https://account.snatchbot.me/script.js"></script><script>window.sntchChat.Init(145307)</script> 
+    </body>
+        
+</html>
